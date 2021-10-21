@@ -20,7 +20,7 @@ public class Company extends  ArrayList {
     void hire(int number,String type){
         int count=0;
             for (int i = 0; i < genEmployees.size()&&count<number; i++) {
-                if (type.equals(genEmployees.get(i).getJobTitle())){
+                if (type.equals(genEmployees.get(i).position.getJobTitle())){
                     employees.add(genEmployees.get(i));
                     genEmployees.remove(i);
                     count++;
@@ -51,9 +51,7 @@ public class Company extends  ArrayList {
             String secondName = SecondNames[(secNam)];
             int position = (int) (Math.random() * 3);
             int baseSalary = 50000 + (int) (Math.random() * 50000);
-            if (position == 0) genEmployees.add(i, new Manager(firstName, secondName, baseSalary));
-            if (position == 1) genEmployees.add(i, new Operator(firstName, secondName, baseSalary));
-            if (position == 2) genEmployees.add(i, new TopManager(firstName, secondName, baseSalary,this));
+            genEmployees.add(i, new Employee(firstName, secondName, baseSalary,position,this));
         }
         for (int j = 0; j < genEmployees.size(); j++) {
             System.out.println(j + 1 + ") " + genEmployees.get(j));
@@ -65,7 +63,7 @@ public class Company extends  ArrayList {
         String top="";
         for (int i = 1; i < employees.size(); i++) {
             int j = i;
-            while (j > 0 && employees.get(j - 1).calcSalary() < employees.get(j).calcSalary()) {
+            while (j > 0 && employees.get(j - 1).position.calcSalary(employees.get(j - 1).baseSalary) < employees.get(j).position.calcSalary(employees.get(j).baseSalary)) {
                 employees.add(j+1,employees.get(j-1));
                 employees.remove(j-1);
                 j--;
@@ -73,7 +71,7 @@ public class Company extends  ArrayList {
         }
         for (int i = 0; i < employees.size()&&i<count; i++) {
             top+=((i+1))+". ";
-            top+=(employees.get(i).calcSalary())+" руб.\n";
+            top+=(employees.get(i).position.calcSalary(employees.get(i).baseSalary))+" руб.\n";
         }
         return top;
     }
@@ -82,7 +80,7 @@ public class Company extends  ArrayList {
         String min="";
         for (int i = 1; i < employees.size(); i++) {
             int j = i;
-            while (j > 0 && employees.get(j - 1).calcSalary() > employees.get(j).calcSalary()) {
+            while (j > 0 && employees.get(j - 1).position.calcSalary(employees.get(j - 1).baseSalary) > employees.get(j).position.calcSalary(employees.get(j).baseSalary)) {
                 employees.add(j+1,employees.get(j-1));
                 employees.remove(j-1);
                 j--;
@@ -90,7 +88,7 @@ public class Company extends  ArrayList {
         }
         for (int f = 0; f < employees.size()&&f<count; f++) {
             min+=((f+1))+". ";
-            min+=(employees.get(f).calcSalary())+" руб.\n";
+            min+=(employees.get(f).position.calcSalary(employees.get(f).baseSalary))+" руб.\n";
         }
         return min;
     }

@@ -1,25 +1,9 @@
-public class Operator extends Employee implements EmployeePosition{
-    public Operator(String firstName, String secondName, int baseSalary) {
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.baseSalary = baseSalary;
-        this.position = "Оператор";
-    }
+public class Operator implements EmployeePosition{
     public String getJobTitle() {
-        return position;
+        return "Оператор";
     }
 
-    public int calcSalary() {
+    public int calcSalary(int baseSalary) {
         return baseSalary;
-    }
-
-    @Override
-    public String toString() {
-        return "Operator{" +
-                "firstName='" + firstName + '\'' +
-                ", secondName='" + secondName + '\'' +
-                ", baseSalary=" + baseSalary +
-                ", position='" + position + '\'' +
-                '}';
     }
 }

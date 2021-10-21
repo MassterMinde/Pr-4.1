@@ -1,4 +1,4 @@
 public interface EmployeePosition {
     String getJobTitle();
-    int calcSalary();
+    int calcSalary(int baseSalary);
 }
